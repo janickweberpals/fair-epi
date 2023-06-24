@@ -1,0 +1,54 @@
+---
+title: "The FAIRification of pharmacoepidemiological research"
+subtitle: "A practical introduction to reproducible analytical workflows using git and R"
+# date: "`r Sys.Date()`"
+# date-format: long
+# author:
+#   - name: Janick Weberpals, RPh, PhD
+#     corresponding: true
+#     orcid: 0000-0003-0404-7394
+#     email: jweberpals@bwh.harvard.edu
+#     url: janickweberpals.github.io
+#     affiliations:
+#       - name: Division of Pharmacoepidemiology and Pharmacoeconomics <br> Brigham and Women's Hospital <br> Harvard Medical School
+#         address: 1620 Tremont Street
+#         city: Boston
+#         state: MA
+#         postal-code: 02120
+#   - name: Shirley V. Wang, PhD
+#     corresponding: true
+#     orcid: 0000-0003-0404-7394
+#     email: svwang1@bwh.harvard.edu
+#     affiliations:
+#       - name: Division of Pharmacoepidemiology and Pharmacoeconomics <br> Brigham and Women's Hospital <br> Harvard Medical School
+#         address: 1620 Tremont Street
+#         city: Boston
+#         state: MA
+#         postal-code: 02120
+code-fold: false
+format: docx
+---
+
+Janick Weberpals^1^, Shirley V. Wang^1^
+
+Author affiliations:
+
+^1^ Division of Pharmacoepidemiology and Pharmacoeconomics, Department of Medicine, Brigham and Women’s Hospital, Harvard Medical School, Boston, MA
+
+Correspondence:
+Janick Weberpals, RPh, PhD
+Instructor in Medicine
+Division of Pharmacoepidemiology and Pharmacoeconomics,
+Department of Medicine, Brigham and Women’s Hospital, Harvard Medical School,
+1620 Tremont Street, Suite 3030-R, Boston, MA 02120, USA
+Phone: 617-278-0932 
+Fax: 617-232-8602 
+Email: jweberpals@bwh.harvard.edu
+
+Word count: ... words
+
+Tables: 
+
+Figures: 
+
+Supplementary material:
