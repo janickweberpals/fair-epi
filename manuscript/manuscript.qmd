@@ -3,6 +3,7 @@ title: "The FAIRification of pharmacoepidemiological research: A practical intro
 
 code-fold: false
 eval: false
+echo: true
 number-sections: true
 
 format: 
@@ -73,25 +74,131 @@ Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
 Transparency and reproducibility in conducting healthcare database studies in pharmacoepidemiology is one of the most critical scientific requirements for meaningful research. While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], the transparency around the actual implementation and analytical steps is still significantly lacking, especially when analyses are implemented via line programming steps in statistical programming languages like R[@RCore2023] or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018] or health informatics[@bakken2019], the sharing of programming code is frequently observed, this practice is not as common in the (pharmaco-)epidemiological community.
 
-Here, the principles of *FAIR* *data*[@garcía-closas2023] can be extended to the implementation of pharmacoepidemiological study workflows by making all components of a study **F**indable, **A**ccessible, **I**nteroperable, and **R**eproducible (**FAIR**). Version control systems (VCS), such as *Git*, can thereby provide easy and powerful tools to keep track of the versioning of analytical code, tables, figures and other resources, track and resolve errors, collaborate with peers, and share resources instantaneously upon submission or publication of a manuscript. By design, VCS workflows automatically enable researchers to comment, track and compare major changes made to documents and hence, increase the ability to comprehend the evolution of a project while maintaining a complete audit trail of all documents.[@ram2013] Without VCS, this is often naturally done by assigning uninformative file names such as \"*final_analysis_1_rev_more_changes.R*\" which is bad practice as this is highly error prone, untransparent for collaborating project members and outside personnel, and changes are difficult to track and reconcile. Particularly in disciplines like pharmacoepidemiology, where analyses can have far reaching impact on healthcare decisions, analytical code needs to be accessible and reproducible by anyone, not only the analyst who originally carried out the analysis.
+Version control systems (VCS), such as *Git*, can thereby provide easy and powerful tools to keep track of the versioning of important files and documents such as protocols, analytical code, tables and figures. Thereby, it can extend the principles of *FAIR* *data*[@garcía-closas2023] to the implementation of pharmacoepidemiological study workflows by making all components of a study **F**indable, **A**ccessible, **I**nteroperable, and **R**eproducible (**FAIR**).
 
-To increase the adoption of transparent and repdroducible workflows using VCS, this tutorial aims to give a practical and tailored introduction for pharmacoepidemiologists on how to set up, structure, and implement workflows using Git as the most frequently used VCS in the scientific community.[@blischak2016] We will first shortly introduce Git and how it can be used to for collaboration and dissemination of study results using project repositories. Then we will provide a technical step-by-step guidance on how to integrate Git in an analytical workflow using line commands. We will additionally showcase examples using the R open-source programming language, although the basic principles can be applied to any major coding language.
+VCS enable researchers to track and resolve errors, collaborate with peers, and share resources instantaneously, for example, upon submission or publication of a manuscript. By design, VCS workflows automatically empower users to comment, track and compare changes made to files and hence, increase the ability to comprehend the evolution of a project over time while maintaining a complete audit trail of all documents.[@ram2013] Without VCS, this is often naturally done by assigning uninformative file names such as \"*final_analysis_1_rev_more_changes.R*\" which is bad practice as this is highly error prone, lacking transparency for collaborating project members and outside personnel, and changes are difficult to track and reconcile. Particularly in disciplines like pharmacoepidemiology, where analyses can have far reaching impact on healthcare decisions, analytical code needs to be accessible and reproducible by anyone, not only the analyst who originally carried out the analysis.
 
-{{< pagebreak >}}
-
-# Git basics
-
-Git is a free and open source distributed VCS software which was developed in 2005 by the LINUX developer community primarily with the intent to handle large software projects simply and efficiently.[@chacon2014pro]
+To increase the adoption of transparent and repdroducible workflows in real-world evidence (RWE) studies using VCS, this tutorial aims to give a practical and tailored introduction for pharmacoepidemiologists on how to set up, structure, and implement workflows using *Git*, which is the most frequently used VCS to date.[@blischak2016] We will first provide a brief introduction to Git and how it can be used to for collaboration and dissemination of study results using project repositories. Then we will provide a technical step-by-step guidance on how to integrate Git in an analytical workflow using line commands. We will additionally showcase examples using the R open-source programming language, although the basic principles can be applied to any major coding language.
 
 {{< pagebreak >}}
+
+# Git in a nutshell
+
+Git is a free and open source distributed VCS software which was developed in 2005 by the LINUX developer community primarily with the intent to handle large software projects efficiently.[@chacon2014pro] The way to conceptually think about how Git works is that it it makes a *snapshot* of a research project repository every time the state of a project is saved. For our purposes, a repository can be seen as an isolated project directory which includes all neccessary files and documents for a given research study ( e.g., protocol, programming code, manuscript, tables, figures, etc.).
+
+In its basic form, Git is a local software and does not need any internet connectivity or connection to a remote server to store *local* changes made to files in a repository. However, to leverage the full potential of Git, it is almost always used in combination with web-based remote repository hosting services such as *GitHub*, *GitLab*, *Bitbucket* and other platforms (henceforth referred to as remote repositories, **Overview Box 1**).
+
+::: {.callout-tip}
+## **Overview Box 1**. Differences between Git and remote repository platforms (GitHub, GitLab, etc.)
+
+**Git**
+
+-   Is an open-source software and distributed version control system
+
+-   Generally operated through command line tools, graphical user interfaces are available
+
+-   Installed locally on a system to track local changes of a Git repository
+
+**Remote repository platforms (GitHub, GitLab, etc.)**
+
+-   Web-based services, usually provided by a commercial entity
+
+-   Usually free for basic functions, paid services for more advanced features
+
+-   Needed to collaborate on shared repositories and dissemination of code
+
+-   Offer a graphical user interface and other functionalities that complement basic Git functions
+
+:::
+
+These platforms make it possible to synchronize local Git repositories of multiple project members and thereby enable collaboration. They further complement Git functionalities by providing a graphical user interface to visualize changes made to files and often offer advanced features such as the automation of workflows using continuous integration and deployment (CI/CD) or, most recently, AI-powered virtual coding assistants (e.g., GitHub co-pilot). Generally speaking, it's possible to use Git without a remote repository, while it's unusual to use a remote repository without Git.
+
+# A step-by-step introduction on how to use Git in a pharmacoepidemiology research study
+
+In this section, we want to give a technical introduction on how Git and remote repositories can be used in RWE studies. For the following examples, we focus on workflows utilizing R/RStudio ([https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/https://posit.co/download/rstudio-desktop/)) and GitLab (<https://about.gitlab.com/>) as the remote repository, although the general concepts are similar and easily transferable to other programming languages and remote repository providers, respectively. We will show examples for both command line interface (CLI) prompts as well as for RStudio's integrated graphical user interface (GUI). For a most comprehensive collection of details, we refer to the book Pro Git by Chacon and Straub.[@chacon2014pro] 
+
+## Installing Git
+
+Git is available for every contemporary operating system and can be downloaded on the official Git website: <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>.
+
+To check if the installation succeeded and show the available version:
+
+```{bash}
+git --version
+```
+
+## Configuration and first time use
+
+For Git to be able to track who made changes, the first step is to provide a name and email address as shown below. This needs to be done only once if the `--global` parameter is set.
+
+```{bash}
+git config --global user.name "First Last"
+git config --global user.email "name@domain.edu"
+```
+
+## Initialization of a new Git-controlled repository
+
+### Local initialization 
+
+To start a new project (e.g., research study), the next step is to create and navigate to a new directory where all documents will be stored that are intended to be tracked via Git (in the following referred to as repository). In this example, the study repository is called `rwe_study`.
+
+```{bash}
+mkdir ~/rwe_study
+cd ~/rwe_study
+```
+
+The command to initialize this directory as a Git repository is
+
+```{bash}
+git init
+```
+
+This triggers the creation of the `.git` folder which will contain the entire version history of the `rwe_study` repository.
+
+### GUI initialization and `git clone` 
+
+An alternative to creating a new repository is through creating a new project on the remote repository (in this case GitLab) and creating a local copy, a process which is usually referred to as `cloning`.
+
+To do so, you need to log into you remote repository profile and navigate to the section `New project/repository` \> `Create blank project` (or use a template) \> Enter some basic information of your new project such as the project name (`rwe_study`) and determine if the repository should be private or public and if a default `README` file should be created.
+
+Now it is possible to copy this pre-populated repository by copying the link given under `Clone` \> `HTTPS` into the CLI:
+
+```{bash}
+mkdir ~/rwe_study
+cd ~/rwe_study
+# GitHub example
+git clone https://github.com/USERNAME/rwe_study.git
+# GitLab example
+git clone  https://gitlab.com/USERNAME/rwe_study.gitlab.io.git
+```
+
+This can also be achieved directly in the RStudio GUI via `File` \> `New Project` \> `Version Control` \> `Git` \> Paste the link to `Repository URL` (fig...)
+
+commit == snapshot
+
+## Repository structure
+
+At this step, we can start now filling the repository with study-relevant documents. To enhance clarity, it is recommended to use
 
 # Discussion
 
-Advantages of VCS:
+Advantages of distributed VCS (Git):
 
--   Free
+-   Full audit trail of which changes were made by whom, when and why
 
--   
+-   Even if the code is not shared, Git makes it easier for an individual to go back to the code
+
+-   Git can serve as internal and external repository for code and made accessible to everyone, e.g. along with manuscript without copy-paste into word files or similar
+
+-   It is free and open-source and reliable
+
+-   Distributed VCS fully mirror entire repositories and hence every local clone is a full backup of the data
+
+{{< pagebreak >}}
+
+# Figures
+
+![Figure 2. Minimal example of a transparent repository structure containing relevant study documents.](figures/Figure_2_repo_structure.png "#fig-2-structure"){#fig-2-structure}
 
 {{< pagebreak >}}
 
