@@ -1,54 +1,98 @@
 ---
-title: "The FAIRification of pharmacoepidemiological research"
-subtitle: "A practical introduction to reproducible analytical workflows using git and R"
-# date: "`r Sys.Date()`"
-# date-format: long
-# author:
-#   - name: Janick Weberpals, RPh, PhD
-#     corresponding: true
-#     orcid: 0000-0003-0404-7394
-#     email: jweberpals@bwh.harvard.edu
-#     url: janickweberpals.github.io
-#     affiliations:
-#       - name: Division of Pharmacoepidemiology and Pharmacoeconomics <br> Brigham and Women's Hospital <br> Harvard Medical School
-#         address: 1620 Tremont Street
-#         city: Boston
-#         state: MA
-#         postal-code: 02120
-#   - name: Shirley V. Wang, PhD
-#     corresponding: true
-#     orcid: 0000-0003-0404-7394
-#     email: svwang1@bwh.harvard.edu
-#     affiliations:
-#       - name: Division of Pharmacoepidemiology and Pharmacoeconomics <br> Brigham and Women's Hospital <br> Harvard Medical School
-#         address: 1620 Tremont Street
-#         city: Boston
-#         state: MA
-#         postal-code: 02120
+title: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R"
+
 code-fold: false
-format: docx
+eval: false
+number-sections: true
+
+format: 
+  docx:
+    reference-doc: custom-reference-doc.docx
+editor: visual
+bibliography: references.bib
+csl: pharmacoepidemiology-and-drug-safety.csl
 ---
 
-Janick Weberpals^1^, Shirley V. Wang^1^
+**Authors**: Janick Weberpals^1^, Shirley V. Wang^1^
 
-Author affiliations:
+**Author affiliation**: ^1^Division of Pharmacoepidemiologyand Pharmacoeconomics, Department of Medicine, Brigham and Women's Hospital, Harvard Medical School, Boston, MA
 
-^1^ Division of Pharmacoepidemiology and Pharmacoeconomics, Department of Medicine, Brigham and Women’s Hospital, Harvard Medical School, Boston, MA
+[**Correspondence:**]{.underline}
 
-Correspondence:
 Janick Weberpals, RPh, PhD
+
 Instructor in Medicine
+
 Division of Pharmacoepidemiology and Pharmacoeconomics,
-Department of Medicine, Brigham and Women’s Hospital, Harvard Medical School,
+
+Department of Medicine, Brigham and Women's Hospital, Harvard Medical School,
+
 1620 Tremont Street, Suite 3030-R, Boston, MA 02120, USA
-Phone: 617-278-0932 
-Fax: 617-232-8602 
-Email: jweberpals@bwh.harvard.edu
 
-Word count: ... words
+Phone: 617-278-0932
 
-Tables: 
+Fax: 617-232-8602
 
-Figures: 
+Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
-Supplementary material:
+[**Word count:**]{.underline} xxx words
+
+[**Tables:**]{.underline}
+
+[**Figures:**]{.underline}
+
+[**Supplementary material:**]{.underline}
+
+[**Keywords:**]{.underline}
+
+[**Funding:**]{.underline}
+
+[**Disclosures/COI:**]{.underline} Janick Weberpals reports no conflicts of interest.
+
+[**Analytical code sharing statement:**]{.underline}Figures and exemplary analyses were conducted using R version 4.1.2. Detailed information on used packages and versions can be found in the Supplementary Methods and code used in this study is available at .xxx.
+
+[**Data sharing statement:**]{.underline} ...
+
+[**Acknowledgments:**]{.underline}
+
+{{< pagebreak >}}
+
+# Abstract {.unnumbered}
+
+**Objective**
+
+**Study Design and Settings**
+
+**Results**
+
+**Conclusions**
+
+{{< pagebreak >}}
+
+# Introduction
+
+Transparency and reproducibility in conducting healthcare database studies in pharmacoepidemiology is one of the most critical scientific requirements for meaningful research. While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], the transparency around the actual implementation and analytical steps is still significantly lacking, especially when analyses are implemented via line programming steps in statistical programming languages like R[@RCore2023] or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018] or health informatics[@bakken2019], the sharing of programming code is frequently observed, this practice is not as common in the (pharmaco-)epidemiological community.
+
+Here, the principles of *FAIR* *data*[@garcía-closas2023] can be extended to the implementation of pharmacoepidemiological study workflows by making all components of a study **F**indable, **A**ccessible, **I**nteroperable, and **R**eproducible (**FAIR**). Version control systems (VCS), such as *Git*, can thereby provide easy and powerful tools to keep track of the versioning of analytical code, tables, figures and other resources, track and resolve errors, collaborate with peers, and share resources instantaneously upon submission or publication of a manuscript. By design, VCS workflows automatically enable researchers to comment, track and compare major changes made to documents and hence, increase the ability to comprehend the evolution of a project while maintaining a complete audit trail of all documents.[@ram2013] Without VCS, this is often naturally done by assigning uninformative file names such as \"*final_analysis_1_rev_more_changes.R*\" which is bad practice as this is highly error prone, untransparent for collaborating project members and outside personnel, and changes are difficult to track and reconcile. Particularly in disciplines like pharmacoepidemiology, where analyses can have far reaching impact on healthcare decisions, analytical code needs to be accessible and reproducible by anyone, not only the analyst who originally carried out the analysis.
+
+To increase the adoption of transparent and repdroducible workflows using VCS, this tutorial aims to give a practical and tailored introduction for pharmacoepidemiologists on how to set up, structure, and implement workflows using Git as the most frequently used VCS in the scientific community.[@blischak2016] We will first shortly introduce Git and how it can be used to for collaboration and dissemination of study results using project repositories. Then we will provide a technical step-by-step guidance on how to integrate Git in an analytical workflow using line commands. We will additionally showcase examples using the R open-source programming language, although the basic principles can be applied to any major coding language.
+
+{{< pagebreak >}}
+
+# Git basics
+
+Git is a free and open source distributed VCS software which was developed in 2005 by the LINUX developer community primarily with the intent to handle large software projects simply and efficiently.[@chacon2014pro]
+
+{{< pagebreak >}}
+
+# Discussion
+
+Advantages of VCS:
+
+-   Free
+
+-   
+
+{{< pagebreak >}}
+
+# References {.unnumbered}
