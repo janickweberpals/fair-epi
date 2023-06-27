@@ -34,4 +34,4 @@ This repository contains the following sub-directories/-files:
 
 ## Dependencies
 
-To reproduce R scripts and Quarto files in this repository, `git clone` or `fork` it and run `renv::restore`
+To reproduce R scripts and Quarto files in this repository, `git clone` or `fork` it and run `renv::restore()`
