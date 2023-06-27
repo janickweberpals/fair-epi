@@ -1,0 +1,77 @@
+---
+title: "Supplementary Appendix"
+subtitle: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R"
+code-fold: true
+eval: false
+echo: true
+number-sections: true
+
+format: 
+  pdf:
+    fig-cap-location: top
+    crossref:
+    fig-title: "**Supplementary Figure**"
+
+editor: visual
+bibliography: references.bib
+csl: pharmacoepidemiology-and-drug-safety.csl
+---
+
+```{r setup}
+#| label: setup
+#| include: false
+#| eval: true
+library(magick)
+library(cowplot)
+library(here)
+```
+
+**Authors**: Janick Weberpals^1^, Shirley V. Wang^1^
+
+**Author affiliation**: ^1^Division of Pharmacoepidemiologyand Pharmacoeconomics, Department of Medicine, Brigham and Women's Hospital, Harvard Medical School, Boston, MA
+
+# Supplementary Figures
+
+```{r}
+#| label: fig-GitHub-gui_1
+#| fig-cap: "Starting a new repository through the GitHub GUI."
+#| eval: false
+#| echo: false
+#| out-width: 60%
+
+sfig_a <- ggdraw() + 
+  draw_image(image_read(here("manuscript/figures", "Figure_1a_new_repo.png")), scale = 0.5)
+
+sfig_a
+```
+
+{{< pagebreak >}}
+
+```{r}
+#| label: fig-GitHub-gui
+#| fig-cap: ""
+#| eval: false
+#| echo: false
+#| out-width: 60%
+
+sfig_a <- ggdraw() + 
+  draw_image(image_read(here("manuscript/figures", "Figure_1a_new_repo.png")), scale = 0.5)
+
+sfig_b <- ggdraw() + 
+  draw_image(image_read(here("manuscript/figures", "Figure_1b_repo_info.png")))
+
+sfig_c <- ggdraw() + 
+  draw_image(image_read(here("manuscript/figures", "Figure_1c_clone.png")))
+
+sfig1 <- plot_grid(
+  fig_a, fig_c, fig_b, 
+  nrow = 2,
+  ncol = 2
+)
+
+sfig1
+```
+
+{{< pagebreak >}}
+
+# References {.unnumbered}
