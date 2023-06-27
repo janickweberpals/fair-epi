@@ -2,16 +2,20 @@
 title: "Supplementary Appendix"
 subtitle: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R"
 code-fold: true
-eval: false
-echo: true
+echo: false
 number-sections: true
 
 format: 
   pdf:
     fig-cap-location: top
+    fig-align: center
     crossref:
-    fig-title: "**Supplementary Figure**"
-
+      fig-title: "**Supplementary Figure**"
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    colorlinks: true
+      
 editor: visual
 bibliography: references.bib
 csl: pharmacoepidemiology-and-drug-safety.csl
@@ -24,52 +28,35 @@ csl: pharmacoepidemiology-and-drug-safety.csl
 library(magick)
 library(cowplot)
 library(here)
-```
-
-**Authors**: Janick Weberpals^1^, Shirley V. Wang^1^
-
-**Author affiliation**: ^1^Division of Pharmacoepidemiologyand Pharmacoeconomics, Department of Medicine, Brigham and Women's Hospital, Harvard Medical School, Boston, MA
-
-# Supplementary Figures
-
-```{r}
-#| label: fig-GitHub-gui_1
-#| fig-cap: "Starting a new repository through the GitHub GUI."
-#| eval: false
-#| echo: false
-#| out-width: 60%
-
-sfig_a <- ggdraw() + 
-  draw_image(image_read(here("manuscript/figures", "Figure_1a_new_repo.png")), scale = 0.5)
-
-sfig_a
+library(knitr)
 ```
 
 {{< pagebreak >}}
 
+# Supplementary Figures
+
 ```{r}
-#| label: fig-GitHub-gui
-#| fig-cap: ""
-#| eval: false
-#| echo: false
-#| out-width: 60%
+#| label: fig-GitHub-gui_a
+#| fig-cap: "Starting a new repository through the GitHub GUI."
+#| out-width: 115%
 
-sfig_a <- ggdraw() + 
-  draw_image(image_read(here("manuscript/figures", "Figure_1a_new_repo.png")), scale = 0.5)
+include_graphics(here("manuscript/figures", "SFigure_1a_new_repo.png"))
+```
 
-sfig_b <- ggdraw() + 
-  draw_image(image_read(here("manuscript/figures", "Figure_1b_repo_info.png")))
+```{r}
+#| label: fig-GitHub-gui_b
+#| fig-cap: "Populating basic information about the new repository."
+#| out-width: 110%
 
-sfig_c <- ggdraw() + 
-  draw_image(image_read(here("manuscript/figures", "Figure_1c_clone.png")))
+include_graphics(here("manuscript/figures", "SFigure_2_repo_info.png"))
+```
 
-sfig1 <- plot_grid(
-  fig_a, fig_c, fig_b, 
-  nrow = 2,
-  ncol = 2
-)
+```{r}
+#| label: fig-GitHub-gui_c
+#| fig-cap: "Clone a GitHub repository using the HTTPS link and the git clone command"
+#| out-width: 115%
 
-sfig1
+include_graphics(here("manuscript/figures", "SFigure_3_clone.png"))
 ```
 
 {{< pagebreak >}}
