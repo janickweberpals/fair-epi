@@ -1,5 +1,5 @@
 ---
-title: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R"
+title: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytic workflows using git and R"
 
 code-fold: false
 eval: false
@@ -27,7 +27,7 @@ library(here)
 
 **Authors**: Janick Weberpals^1^, Shirley V. Wang^1^
 
-**Author affiliation**: ^1^Division of Pharmacoepidemiologyand Pharmacoeconomics, Department of Medicine, Brigham and Women's Hospital, Harvard Medical School, Boston, MA
+**Author affiliation**: ^1^Division of Pharmacoepidemiology and Pharmacoeconomics, Department of Medicine, Brigham and Women's Hospital, Harvard Medical School, Boston, MA
 
 [**Correspondence:**]{.underline}
 
@@ -45,25 +45,23 @@ Fax: 617-232-8602
 
 Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
-[**Word count:**]{.underline} xxx words
+[**Word count:**]{.underline} xxxx words
 
-[**Tables:**]{.underline}
+[**Tables:**]{.underline} 0
 
-[**Figures:**]{.underline}
+[**Figures:**]{.underline} 6
 
 [**Supplementary material:**]{.underline}
 
-[**Keywords:**]{.underline}
+[**Keywords:**]{.underline} Transparency, Reproducibility, Git, R, Version control, Real-world evidence
 
-[**Funding:**]{.underline}
+[**Funding:**]{.underline} There was no specific funding for this manuscript.
 
 [**Disclosures/COI:**]{.underline} Janick Weberpals reports no conflicts of interest.
 
-[**Analytical code sharing statement:**]{.underline}Figures and exemplary analyses were conducted using R version 4.1.2. Detailed information on used packages and versions can be found in the Supplementary Methods and code used in this study is available at .xxx.
+[Analytical code sharing statement:]{.underline} This manuscript was written using `Quarto` version 1.3.353 (<https://quarto.org/>) and R version 4.1.2. All materials can be found at <https://gitlab-scm.partners.org/drugepi/fair-epi>. Detailed information on packages and versions can be found in the `renv.lock` file in the linked repository.
 
-[**Data sharing statement:**]{.underline} ...
-
-[**Acknowledgments:**]{.underline}
+[**Acknowledgments:**]{.underline} The authors would like to thank ...
 
 {{< pagebreak >}}
 
@@ -87,15 +85,15 @@ Version control systems (VCS), such as *Git*, can thereby provide easy and power
 
 VCS enable researchers to track and resolve errors, collaborate with peers, and share resources instantaneously, for example, upon submission or publication of a manuscript. By design, VCS workflows automatically empower users to comment, track and compare changes made to files and hence, increase the ability to comprehend the evolution of a project over time while maintaining a complete audit trail of all documents.[@ram2013] Without VCS, this is often naturally done by assigning uninformative file names such as "*final_analysis_1_rev_more_changes.R*" which is bad practice as this is highly error prone, lacking transparency for collaborating project members and outside personnel, and changes are difficult to track and reconcile. Particularly in disciplines like pharmacoepidemiology, where analyses can have far reaching impact on healthcare decisions, analytical code needs to be accessible and reproducible by anyone, not only the analyst who originally carried out the analysis.
 
-To increase the adoption of transparent and repdroducible workflows in real-world evidence (RWE) studies using VCS, this tutorial aims to give a practical introduction tailored for pharmacoepidemiologists on how to set up, structure, and implement workflows using *Git*, which is the most frequently used VCS to date.[@blischak2016] We will first provide a brief introduction to Git and how it can be used to for collaboration and dissemination of study results using project repositories. Then we will provide a technical step-by-step guidance on how to integrate Git in an analytical workflow using line commands. We will additionally showcase examples using the R open-source programming language, although the basic principles can be applied to any major coding language.
+To increase the adoption of transparent and reproducible workflows in real-world evidence (RWE) studies using VCS, this tutorial aims to give a practical introduction tailored for pharmacoepidemiologists on how to set up, structure, and implement workflows using *Git*, which is the most frequently used VCS to date.[@blischak2016] We will first give a brief introduction to Git and how it can be used for collaboration and dissemination of study results using project repositories. Then we will provide a technical step-by-step guidance on how to integrate Git in an analytic workflow. We will additionally discuss and showcase important aspects of reproducibillity using the R open-source programming language, although the basic principles are applicable to any major coding language.
 
 {{< pagebreak >}}
 
 # Git in a nutshell
 
-Git is a free and open source distributed VCS software which was developed in 2005 by the LINUX developer community primarily with the intent to handle large software projects efficiently.[@chacon2014pro] The way to conceptually think about how Git works is that it it makes a *snapshot* of a research project repository every time the state of a project is saved. For our purposes, a repository can be seen as an isolated project directory which includes all neccessary files and documents for a given research study ( e.g., protocol, programming code, manuscript, tables, figures, etc.).
+Git is a free and open source distributed VCS software which was developed in 2005 by the LINUX developer community primarily with the intent to handle large software projects efficiently.[@chacon2014pro] The way to conceptually think about how Git works is that it makes a *snapshot* of a research project repository every time the state of a project is saved. For our purposes, a repository can be seen as an isolated project directory which includes all neccessary files and documents for a given research study ( e.g., protocol, programming code, manuscript, tables, figures, etc.).
 
-In its basic form, Git is a local software and does not need any internet connectivity or connection to a remote server to store *local* changes made to files in a repository. However, to leverage the full potential of Git, it is almost always used in combination with web-based remote repository hosting services such as *GitHub*, *GitLab*, *Bitbucket* and other platforms (henceforth referred to as remote repositories, **Overview Box 1**).
+In its basic form, Git is a local software and does not need any internet connectivity or connection to a remote server to store *local* changes made to files in a repository. However, to leverage the full potential of Git, it is almost always used in combination with web-based remote repository hosting services such as *GitHub*, *GitLab*, *Bitbucket* or other platforms (henceforth referred to as remote repositories, **Overview Box 1**).
 
 ::: callout-tip
 ## **Overview Box 1**. Differences between Git and remote repository platforms (GitHub, GitLab, etc.)
@@ -119,11 +117,11 @@ In its basic form, Git is a local software and does not need any internet connec
 -   Offer a graphical user interface and other functionalities that complement basic Git functions
 :::
 
-These platforms make it possible to synchronize local Git repositories across multiple project members and thereby enable collaboration. They further complement Git functionalities by providing a graphical user interface (GUI) to visualize changes made to files and often offer advanced features such as the automation of workflows using continuous integration and deployment (CI/CD) or, most recently, AI-powered virtual coding assistants (e.g., GitHub co-pilot). Generally speaking, it's possible to use Git without a remote repository, while it's unusual to use a remote repository without Git.
+These platforms make it possible to synchronize local Git repositories across multiple project members and thereby improve collaboration. They further complement Git functionalities by providing a graphical user interface (GUI) to visualize changes made to files and often offer advanced features such as the automation of workflows using continuous integration and deployment (CI/CD) or, most recently, AI-powered virtual coding assistants (e.g., GitHub co-pilot). Generally speaking, it's possible to use Git without a remote repository, while it's unusual to use a remote repository without Git.
 
 # A step-by-step introduction on how to use Git in a pharmacoepidemiology research study
 
-In this section, we want to give a technical introduction on how Git and remote repositories can be used in RWE studies. For the following examples, we focus on workflows utilizing R/RStudio ([https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/https://posit.co/download/rstudio-desktop/)) and GitHub (<https://github.com/>) as the remote repository, although the general concepts are similar and easily transferable to other programming languages and remote repository providers, respectively. We will show examples for both command line interface (CLI) prompts as well as for RStudio's integrated GUI. For more details, we refer to the book *Pro Git* by Chacon and Straub.[@chacon2014pro] 
+In this section, we want to give a technical introduction on how Git and remote repositories can be used in RWE studies. For the following examples, we focus on workflows utilizing R/RStudio ([https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/https://posit.co/download/rstudio-desktop/)) and GitHub (<https://github.com/>) as remote repository, although the general concepts are fairly similar and easily transferable to other programming languages and remote repository providers, respectively. We will show examples for both command line interface (CLI) prompts as well as for RStudio's integrated GUI. For more details, we refer to the book *Pro Git* by Chacon and Straub.[@chacon2014pro] 
 
 ## Installing Git
 
@@ -148,7 +146,7 @@ git config --global user.email "name@domain.edu"
 
 ### Local initialization
 
-To start a new project (e.g., a RWE study), the next step is to create and navigate to a new directory where all documents that are intended to be tracked via Git will be stored (in the following referred to as repository). In this example, the study repository is called `rwe_study`.
+To start a new project (e.g., a new RWE study), the next step is to create and navigate to a new directory where all documents that are intended to be tracked via Git will be stored (in the following referred to as *repository*). In this example, the study repository is called `rwe_study`.
 
 ```{bash}
 mkdir ~/rwe_study
@@ -167,9 +165,9 @@ This initiates the creation of the `.git` sub-directory within the study reposit
 
 An alternative to creating a new repository locally is through creating a new project in the remote repository (in this case GitHub) and then creating a local copy, a process which is usually referred to as `cloning`.
 
-To do so, users will need to log into their remote repository account and navigate to the section `New repository` (**Supplementary Figure 1**). This will take a user to a form to populate basic information of the new project such as the repository name (`rwe_study`) and choose basic setting such as if the repository should be private or public and if a `README.md` file (see @sec-repository-structure) should be automatically created (**Supplementary Figure 2**).
+To do so, users will need to log into their remote repository account and navigate to the section `New repository` (**Supplementary Figure 1**). This will take a user to a form to populate basic information of the new project such as the repository name (`rwe_study`) and choose basic setting such as if the repository should be private or public and if a `README.md` (see @sec-repository-structure) and `.gitignore` (see @sec-stage-and-commit-changes) file should be automatically created (**Supplementary Figure 2**).
 
-Now we can copy the pre-populated repository to our local machine by copying the link given under `Clone` \> `Copy HTTPS` into the CLI (**Supplementary Figure 3**):
+Now we can copy the pre-populated repository to our local machine by copy-pasting the link given under `Clone` \> `Copy HTTPS` into the CLI (**Supplementary Figure 3**):
 
 ```{bash}
 mkdir ~/rwe_study
@@ -181,17 +179,19 @@ This can also be achieved directly in the RStudio GUI via `File` \> `New Project
 
 ## Repository structure {#sec-repository-structure}
 
-At this step, we now can populate the repository and start working on study-relevant documents. To enhance clarity, it is recommended to use a logical structure and informative and transparent sub-directory and file names (a minimal example is illustrated in @fig-structure). To document the structure and location of files, we can include this and other critical information that a peer or outside personnel should know concerning your project in the `README.md` file. This file can be auto-generated when a project is initialized in a remote repository (see prior step in @sec-gui-initialization-and-git-clone) or can be added manually by creating and adding a text file with the name `README.md` in the root directory of the repository. We provide a pre-populated template of such a study repository based on the HARPER protocol [@wang2022] under <https://gitlab-scm.partners.org/drugepi/harper>.
+At this step, we now can populate the repository and start working on study-relevant documents. To enhance clarity, it is recommended to use a logical structure and informative and transparent sub-directory and file names (a minimal example is illustrated in @fig-structure). To document the structure and location of files, we can include this and other critical information, that a peer or outside personnel should know concerning the project, in the `README.md` file. This file can be auto-generated when a project is initialized in a remote repository (see prior step in @sec-gui-initialization-and-git-clone) or can be added manually aftwerwards by creating and adding a text file with the name `README.md` in the root directory of the repository.
+
+To speed up these initial steps, we provide a pre-populated template of such a structured study repository based on the HARPER protocol[@wang2022] under <https://gitlab-scm.partners.org/drugepi/harper>.
 
 ## The git workflow
 
 The most essential steps of a git workflow are summarized in @fig-workflow.
 
-### Stage and commit changes
+### Stage and commit changes {#sec-stage-and-commit-changes}
 
-As introduced before, Git allows researchers to keep track of changes by making snapshots of the repository every time the state of a project is saved. In Git terms, this fundamental step is referred to as `commit`. Generally it is up to the user which files should be committed, how the commit should be documented in a `commit message` and when it should be performed.
+As introduced before, Git allows researchers to keep track of changes by making snapshots of the repository every time the state of a project is saved. In Git terms, this fundamental step is referred to as a `commit`. Generally it is up to the user when to commit, which files to commit and how the commit should be documented in a `commit message`.
 
-To determine which files should be selected (or `staged`) for a new commit, the `git add` command is used followed by the name(s) of the files that should be committed or a `.` to stage all changes present in the current repository.
+To determine which files should be selected (or `staged`) for a new commit, the `git add` command is used followed by the name(s) of the files that should be committed or a '`.'` to stage all changes present in the current repository.
 
 ```{bash}
 # Examplary staging command
@@ -202,24 +202,24 @@ Once all files that should be committed in the same step are staged, the `git co
 
 ```{bash}
 # Examplary commit command
-git commit -m 'Applied inclusion and exclusion criteria to cohort query'
+git commit -m 'added title to plot illustrating propensity score overlap'
 ```
+
+Every time a user makes a commit to create a snapshot of the work, `Git` creates a unique hash (a 40-character string created by a **simple hashing algorithm** \[SHA\]) which can be seen as an "ID" of the snapshot which enables user to comprehend every change made and revert back to any snapshot of the repository. @fig-stage-commit-RStudio-gui illustrates the equivalent step by using the RStudio GUI.
 
 If any file(s) in the study repository should not be tracked and hence not be synchronized with the remote repository (e.g., because they include confidential information that should not be visible to others like database credentials), these files can be specified in the `.gitignore` file which needs to be located in the root directory of the repository. To create a `.gitignore` file, either auto-generate it upon initialization of the repository on GitHub (**Supplementary Figure 2**) or manually add a text file called `.gitignore` to the root directory.
 
-@fig-stage-commit-RStudio-gui illustrates the equivalent steps in using the RStudio GUI.
-
 ## Synchronize changes with remote repository
 
-### Local changes to remote (`push`)
+### Synchronize local changes to remote (`push`)
 
-To synchronize the local changes to our files, the next step involves synchronizing our commits with the remote repository on GitHub via the `push` command.
+To synchronize the local changes made to our files, the next step involves synchronizing our commits with the remote repository on GitHub via the `push` command.
 
 ```{bash}
 git push
 ```
 
-In case we initialized the local repository as described in section @sec-gui-initialization-and-git-clone, a remote was already automatically configured. This can be checked via the following command.
+In case we initialized the local repository as described in section @sec-gui-initialization-and-git-clone, a remote was automatically configured. This can be checked via the following command.
 
 ```{bash}
 git remote -v
@@ -233,9 +233,9 @@ git branch -M main
 git push -u origin main
 ```
 
-This step is not needed if the intention of a researcher is just to keep track of local changes and there is no intention to share code, collaborate with others or work across different systems. However, most of the times researchers need to collaborate on a project and `git` can improve collaborative work significantly (@fig-collaborate).
+This step is not needed if the intention of a researcher is just to keep track of local changes and there is no wish to share code, collaborate with others or work across different systems. However, most of the times researchers intentionally use `Git` to collaborate on a project and remote repositories such as GitHub as this can improve collaborative work significantly (@fig-collaborate).
 
-### Remote to local
+### Synchronize remote to local (`pull`)
 
 In case collaborators have also made modification to their local files and pushed them to the remote repository, these changes can be easily synchronized with our local copy via the `pull` command.
 
@@ -243,17 +243,62 @@ In case collaborators have also made modification to their local files and pushe
 git pull
 ```
 
-Occasionally it can occur that two collaborators made conflicting changes to the same file or even to the same line of code. While Git is generally good at automatically integrating (`merging`) new changes, Git will notify the user to resolve a conflict by editing the conflicting file if Git cannot automatically determine what is correct.
+Occasionally it can occur that two collaborators made conflicting changes to the same file or even to the same line of code. While Git is generally good at automatically integrating (`merging`) new changes, Git will notify the user to resolve a major conflict by editing the conflicting file if Git cannot automatically determine what is correct ((e.g., when one collaborator has made changes to a line of code and the other completely deleted it).
 
 ## Tracking changes
 
+One of the main motivations to adhere to this workflow is that in return we get rewarded with a detailed audit trail of changes made to our files. Probably, the best way to visualize and track changes is by browsing the `commit history` on the remote repository. @fig-GitHub-gui_changes illustrates this for the example commit we have previously performed in @sec-stage-and-commit-changes. A similar view for uncommitted changes is also provided in the RStudio GUI as displayed in @fig-stage-commit-RStudio-gui.
+
+For completeness, tracking uncommitted changes is also possible via the command line, but usually provides the user with a less intuitive output compared to what is visually provided by RStudio and GitHub.
+
+```{bash}
+git diff
+```
+
+A complete summary of committed changes with details on SHA hash, author, email, time and commit messages can be accessed via
+
+```{bash}
+git log
+```
+
 ## Keeping track of R software versions and paths
+
+A major advantage of modern programming languages, is that they provide a large pool of open-source packages. Packages are compilations of functions that automate frequently used procedures (e.g., querying new user cohorts[@tidyverse] or propensity score matching[@MatchIt]) which expedites the implementation of RWE studies, mitigates copy-paste errors and makes code much more friendly to read and review.
+
+A further step to improve reproducibility when using the R programming language is to ensure that anyone intending to reproduce analytic results from a `Git` repository is able to work off the same R package versions and dependencies without having to perform manual installations or path adjustments. These requirements are nothing exclusive to R, but apply to any type of programming language.
+
+### Reproducible R computing environments
+
+One way to achieve this is through self-contained computing environments via Docker images which are isolated and standardized environments which include everything needed to run and deploy applications and code regardless of a user's local operating system.[@boettiger2017a; @nüst2020] Another more lightweight, yet effective way is by using the `renv` R package[@renv], which helps creating **re**producible **env**ironments and manages R package dependencies for a given project. Through a lockfile, the `renv` package keeps track of the underlying version of R that is being used as well as all R packages, their versions and the installation source (e.g., <https://cran.r-project.org/>). To synchronize the R environment with that of a collaborator, e.g., after cloning a repository, all that needs to be done is running the following command in R.
+
+```{r}
+renv::restore()
+```
+
+Appending the session info to the end of an R script can provide further context.
+
+```{r}
+sessionInfo()
+```
+
+### Absolute versus relative paths
+
+Another common issue when trying to reproduce analytic code is the use of absolute paths such as in the following example, where we try to call an `icd_code` file from the project's `protocol` sub-directory.
+
+```{r}
+icd_codes <- read.csv("C:\Users\Username\Projects\rwe_study\protocol\icd_codes.csv")
+```
+
+The use of absolute paths will make it impossible for anyone to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example `rwe_study`). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any user re-running this script.
+
+```{r}
+library(here)
+icd_codes <- read.csv(here("data", "icd_codes.csv"))
+```
 
 # Discussion
 
 Also other GUIs to interact with Git...
-
-Docker
 
 Advantages of distributed VCS (Git):
 
@@ -269,11 +314,7 @@ Advantages of distributed VCS (Git):
 
 {{< pagebreak >}}
 
-# Tables
-
-Create a table with most important git commands
-
-# Figures
+# Figures {.unnumbered}
 
 ```{r}
 #| label: Fig1
@@ -363,5 +404,14 @@ knitr::include_graphics(here::here("figures", "Figure_5_collaboration.png"))
 ```
 
 {{< pagebreak >}}
+
+```{r}
+{r}
+#| label: fig-GitHub-gui_changes
+#| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA hash and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom)."
+#| out-width: 105%
+
+include_graphics(here("figures", "SFigure_4_commit_Github_gui.png"))
+```
 
 # References {.unnumbered}
