@@ -1,6 +1,6 @@
 ---
 title: "Supplementary Appendix"
-subtitle: "The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R"
+subtitle: "The FAIRification of research in real-world evidence: A practical introduction to reproducible analytic workflows using Git and R"
 code-fold: true
 echo: false
 number-sections: true
@@ -10,7 +10,7 @@ format:
     fig-cap-location: top
     fig-align: center
     crossref:
-      fig-title: "**Supplementary Figure**"
+      fig-title: "Supplementary Figure"
     toc: true
     toc-depth: 2
     number-sections: false
@@ -33,6 +33,101 @@ library(knitr)
 
 {{< pagebreak >}}
 
+# Supplementary material
+
+## Branching			
+
+Sometimes it is necessary to implement changes to a document or code without wanting to interfere with a current \"`production`\" version of a document or code. However, a researcher may still want to be able to \"`merge`\" back potential changes, e.g. to integrate new analyses into a script or to develop a new set of features or functions to an application. To do this in a safe, transparent and efficient manner, `Git` provides the option to **branch** our repository. The default branch of any repository is the `main` branch.
+
+Branching is a concept that is highly adapted in software development where the `main` branch reflects the software version that is deployed for public use (i.e., the production version) and a `development` branch that is the version that implements new features (i.e., the beta version). Hence, `branches` are used in order to have the flexibility to develop new features without jeopardizing the current `main` and `development` versions.
+
+Branching can have two very useful use cases for adaption in real-world evidence (RWE) studies. First, new analyses or improvements of existing analyses can be implemented without having to "mess" with existing code which works perfectly. Once a new analysis or visualization of results was established in a new `named branch` and works without errors, this branch can be `merged` back to the `main` branch (as depicted in the illustration below).
+
+```{r}
+#| label: branching
+#| out-width: 100%
+
+include_graphics(here("figures", "SFigure_x_branching.png"))
+```
+
+Second, branches can be re-purposed as backup versions of the repository at project landmarks. Examples could range from the first round of review among co-authors to the initial submission of a manuscript draft to a journal, corresponding rounds of revisions and the final version. This way it can be ensured that also prior versions of analyses can be reproduced without problems.
+
+To create a new branch and switch to it from the main branch, you can run the `git checkout` command with the -b switch. Let's say we call the new branch `lasso_variable_selection`.
+
+```{bash, eval=FALSE, echo=TRUE}
+git checkout -b lasso_variable_selection
+```
+
+This is shorthand for:
+
+```{bash, eval=FALSE, echo=TRUE}
+git branch lasso_variable_selection
+git checkout lasso_variable_selection
+```
+
+It is possible to switch between multiple branches back and forth and it's important to keep in mind that changes need to be committed before switch to the new branch branch. A user can e.g. switch back to the master branch by running the following command:
+
+```{bash, eval=FALSE, echo=TRUE}
+git checkout master
+```
+
+Suppose we have decided that the `lasso_variable_selection` approach led to a better balancing of the two new user cohorts after propensity score matching and we are ready to merge the implemented changes back into our main branch. This can be achieved by checking out the branch you wish to merge into (in this case `main` and then run the git merge command:
+
+```{bash, eval=FALSE, echo=TRUE}
+git checkout main
+git merge lasso_variable_selection
+```
+
+If the branch is merged and there is no desire anymore to use this branch any longer, the `lasso_variable_selection` branch can be deleted with the following command:
+
+```{bash, eval=FALSE, echo=TRUE}
+git branch -d lasso_variable_selection
+```
+
+These steps can also easily be done on remote repositories like GitHub or GitLab. The only difference to keep in mind is that GitHub counterintuitively calls the procedure of merging two branches `pull request` while GitLab refers to it as `merge request`.	
+
+In case `Git` recognizes any clashes or incompatibilities of the new code with the existing code it will notify the user and give us the chance to reconcile inconsitencies.
+
+{{< pagebreak >}}
+
+## Advanced readings on `Git` and other resources
+
+-   Main `Git` website to download and learn more about `Git:` <https://git-scm.com>
+
+-   [Pro Git](https://git-scm.com/book/en/v2) by Scott Chacon and Ben Straub.
+
+-   Cheatsheet on most important `Git` commands: <https://education.github.com/git-cheat-sheet-education.pdf>
+
+-   GitHub Desktop App: <https://desktop.github.com/>
+
+-   Git manual by *Atlassian* (provider of the `Bitbucket` platform): <https://www.atlassian.com/git>
+
+-   Coursera courses:
+
+    -   [Introduction to Git and GitHub](https://www.coursera.org/learn/introduction-git-github) (Google)
+
+    -   [Version Control with Git](https://www.coursera.org/learn/version-control-with-git) (Atlassian)
+
+    -   [Getting Started with Git and GitHub](https://www.coursera.org/learn/getting-started-with-git-and-github) (IBM)
+
+    -   [Making Data Science Work for Clinical Reporting](https://www.coursera.org/learn/making-data-science-work-for-clinical-reporting?=) (Genentech)
+
+-   Quarto (open-source scientific and technical publishing system for reproducible research): <https://quarto.org>
+
+-   Choosing a suitable license for a remote repository: Public repositories need to be licensed to be truly open source. If no license is provided, the work is by default under exclusive copyright. The website <https://choosealicense.com> provides an excellent overview of the different types of licenses.
+
+-   Useful Git repositories for observational healthcare research:
+
+    -   Division of Pharmacoepidemiology and Pharmacoeconomics: [https://gitlab-scm.partners.org/drugepi](https://gitlab-scm.partners.org/drugepi/harper){.uri}
+
+    -   Observational Health Data Sciences and Informatics (OHDSI): <https://github.com/OHDSI>
+
+    -   Darwin EU® Private Development Repository: <https://github.com/darwin-eu-dev>
+
+    -   Pharmaverse (Network of developers of curated open source R packages for clinical reporting): [https://pharmaverse.org](https://pharmaverse.orghttps://pharmaverse.org) & <https://github.com/pharmaverse/>
+
+{{< pagebreak >}}
+
 # Supplementary Figures
 
 ```{r}
@@ -40,7 +135,7 @@ library(knitr)
 #| fig-cap: "Starting a new repository through the GitHub GUI."
 #| out-width: 115%
 
-include_graphics(here("manuscript/figures", "SFigure_1a_new_repo.png"))
+include_graphics(here("figures", "SFigure_1a_new_repo.png"))
 ```
 
 ```{r}
@@ -48,17 +143,23 @@ include_graphics(here("manuscript/figures", "SFigure_1a_new_repo.png"))
 #| fig-cap: "Populating basic information about the new repository."
 #| out-width: 110%
 
-include_graphics(here("manuscript/figures", "SFigure_2_repo_info.png"))
+include_graphics(here("figures", "SFigure_2_repo_info.png"))
 ```
 
 ```{r}
 #| label: fig-GitHub-gui_c
 #| fig-cap: "Clone a GitHub repository using the HTTPS link and the git clone command"
-#| out-width: 115%
-
-include_graphics(here("manuscript/figures", "SFigure_3_clone.png"))
+#| out-width: 105%
+include_graphics(here("figures", "SFigure_3_clone.png"))
 ```
 
 {{< pagebreak >}}
 
-# References {.unnumbered}
+```{r}
+#| label: fig-GitHub-gui_changes
+#| eval: false
+#| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA hash and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom)."
+#| out-width: 105%
+
+include_graphics(here("figures", "SFigure_4_commit_Github_gui.png"))
+```
