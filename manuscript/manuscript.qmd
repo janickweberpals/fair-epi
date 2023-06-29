@@ -53,6 +53,8 @@ Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
 [**Supplementary material:**]{.underline}
 
+[**Short running title**]{.underline}: FAIRification of pharmacoepidemiological research
+
 [**Keywords:**]{.underline} Transparency, Reproducibility, Git, R, Version control, Real-world evidence
 
 [**Funding:**]{.underline} There was no specific funding for this manuscript.
@@ -67,7 +69,7 @@ Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
 # Abstract {.unnumbered}
 
-**Objective**
+**Purpose**
 
 **Study Design and Settings**
 
@@ -79,7 +81,7 @@ Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
 # Introduction
 
-Transparency and reproducibility in conducting healthcare database studies in pharmacoepidemiology are critical scientific requirements for meaningful research. While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], the transparency around the actual implementation and analytical steps is still significantly lacking, especially when analyses are implemented via line programming steps in statistical programming languages like R[@RCore2023] or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018] or health informatics[@bakken2019], the sharing of programming code is rather the rule than the exception, this practice is not as common in the (pharmaco-)epidemiological community.
+Transparency and reproducibility in conducting healthcare database studies in pharmacoepidemiology are critical scientific requirements for meaningful research. While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], the transparency around the actual implementation and analytic steps is still significantly lacking, especially when analyses are implemented via line programming steps in statistical programming languages like R[@RCore2023] or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018] or health informatics[@bakken2019], the sharing of programming code is rather the rule than the exception, this practice is not as common in the (pharmaco-)epidemiological community.
 
 Version control systems (VCS), such as *Git*, can thereby provide easy and powerful tools to keep track of the versioning of important files and documents such as protocols, analytical code, tables and figures. Thereby, it can extend the principles of *FAIR* *data*[@garcía-closas2023] to the implementation of pharmacoepidemiological study workflows by making all components of a study **F**indable, **A**ccessible, **I**nteroperable, and **R**eproducible (**FAIR**).
 
@@ -298,9 +300,15 @@ icd_codes <- read.csv(here("data", "icd_codes.csv"))
 
 # Discussion
 
-Also other GUIs to interact with Git...
+In this practical tutorial, we introduced basic concepts of VCS for transparent and reproducible workflows and gave technical step-by-step instructions for the implementation using `Git` and R. We discussed frequently occurring challenges for reproducibility and how these can be overcome.
 
-Advantages of distributed VCS (Git):
+`Git` is a powerful tool that perfectly integrates into workflows of quantitative disciplines which have to handle analytic code. It further provides features that make it convenient for project-oriented setups and to collaborate at scale. This tutorial aimed to give an introduction to essential concepts that make it useful for pharmacoepidemiology research, but is by no means comprehensive as `Git` provides a vast amount of additional features which were not addressed in this manuscript. To get familiar with more advanced `Git` usage, we compiled a non-exhaustive list of further readings in the **Supplementary Material**.
+
+`Git` was primarily designed to work with source code files and works best for plain, text-based documents such programming code, rich text format (RTF), Markdown or LaTex files. There are limitations when it comes to tracking binary files like Word (.docx) and Excel (.xlsx) as these need to be interpreted by a program or a hardware processor[@blischak2016]. While it can be still useful to track versions of these file types, it is important to recognize that modifications in such documents can't be easily inspected using Rstudio or GitHub.
+
+Moreover, when working with remote repositories, it is of utmost importance to ensure that sensitive information (such as passwords or patient-level data) are not accidentally shared. To prevent this, we recommend specifying such files in the `.gitignore` file before making the first commit or, more preferably, not storing them in the project directory in the first place.
+
+Despite its potential initial complexities to get acquanited with the `Git` workflow, distributed VCS and code sharing provide unique advantages:
 
 -   Full audit trail of which changes were made by whom, when and why
 
@@ -315,43 +323,6 @@ Advantages of distributed VCS (Git):
 {{< pagebreak >}}
 
 # Figures {.unnumbered}
-
-```{r}
-#| label: Fig1
-#| fig-cap: "Clone a remote repository using the RStudio graphical user interface."
-#| eval: false
-#| echo: false
-
-fig1a <- ggdraw() +
-  draw_image(image_read(here("figures", "Figure_1a_RStudio.png")))
-
-fig1b <- ggdraw() +
-  draw_image(image_read(here("figures", "Figure_1b_RStudio.png")))
-
-fig1c <- ggdraw() +
-  draw_image(image_read(here("figures", "Figure_1c_RStudio.png")))
-
-fig1d <- ggdraw() +
-  draw_image(image_read(here("figures", "Figure_1d_RStudio.png")))
-
-figure_1 <- plot_grid(
-  fig1a, fig1b, fig1c, fig1d,
-  nrow = 2,
-  ncol = 2,
-  #labels = c("a)", "b)", "c)", "d)"),
-  hjust = 0.005,
-  label_size = 16
-  )
-
-png(
-  filename = here("figures", "Figure_1_RStudio_init.png"), 
-  width = 15, height = 10, units = "in", res=600
-  )
-figure_1
-invisible(dev.off())
-
-knitr::include_graphics(here::here("figures", "Figure_1_RStudio_init.png"))
-```
 
 ```{r}
 #| label: fig-RStudio-gui
@@ -411,7 +382,7 @@ knitr::include_graphics(here::here("figures", "Figure_5_collaboration.png"))
 #| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA hash and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom)."
 #| out-width: 105%
 
-include_graphics(here("figures", "SFigure_4_commit_Github_gui.png"))
+include_graphics(here("figures", "Figure_6_commit_Github_gui.png"))
 ```
 
 # References {.unnumbered}
