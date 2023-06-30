@@ -287,7 +287,7 @@ Another common issue when trying to reproduce analytic code is the use of absolu
 icd_codes <- read.csv('C:/User/Projects/rwe_study/protocol/icd_codes.csv')
 ```
 
-The use of absolute paths will make it impossible for any collaborator to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example the `rwe_study` directory). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any user re-running this script.
+The use of absolute paths will make it impossible for any collaborator to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package[@here] which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example the `rwe_study` directory). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any user re-running this script.
 
 ```{r}
 library(here)
