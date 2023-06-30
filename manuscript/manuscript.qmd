@@ -168,7 +168,7 @@ Now we can copy the pre-populated repository to our local machine by copy-pastin
 ```{bash}
 mkdir ~/rwe_study
 cd ~/rwe_study
-git clone  https://gitlab.com/USERNAME/rwe_study.gitlab.io.git
+git clone https://github.com/USER/rwe_study.git
 ```
 
 This can also be achieved directly in the RStudio GUI via `File` \> `New Project` \> `Version Control` \> `Git` \> paste the link to `Repository URL` (@fig-RStudio-gui).
