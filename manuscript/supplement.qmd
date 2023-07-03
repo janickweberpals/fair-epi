@@ -35,9 +35,82 @@ library(knitr)
 
 # Supplementary material
 
-## Branching			
+## Example for an end-to-end workflow using Git
 
-Sometimes it is necessary to implement changes to a document or code without wanting to interfere with a current \"`production`\" version of a document or code. However, a researcher may still want to be able to \"`merge`\" back potential changes, e.g. to integrate new analyses into a script or to develop a new set of features or functions to an application. To do this in a safe, transparent and efficient manner, `Git` provides the option to **branch** our repository. The default branch of any repository is the `main` branch.
+This section aims to summarize a minimally commented end-to-end workflow of incorporating and tracking changes for a an analysis step of a RWE study. To that end, we use the same example as in the main manuscript.
+
+Step 1: In case we work with multiple branches (see @sec-branching below), we can first check if we are on the correct branch where we want to implement our changes.
+
+```{bash, eval = FALSE}
+# check the current branch
+git branch
+```
+
+Step 2: Before initiating any new changes, it can be a good idea to check if a collaborator, who may work on the same branch, made any changes.
+
+```{bash, eval = FALSE}
+# git pull changes
+git pull
+```
+
+Step 3: We make changes to the analysis script \`scripts/03_propensity_score_analysis.R\` by adding a title to a plot illustrating the propensity score overlap.
+
+```{r, eval = FALSE}
+# load data
+library(smdi)
+library(gtsummary)
+library(tidyverse)
+library(here)
+library(smdi)
+
+# we use  data from the smdi R package
+data <- smdi::smdi_data_complete
+
+# step 1: compute propensity of exposure assignment
+
+# 1.1 select variables to include in propensity 
+ps_covars <- data %>% 
+  dplyr::select(-exposure) %>% 
+  names()
+
+# 1.2: define formula for the GLM
+exposure_form <- as.formula(paste("exposure ~ ", paste(ps_covars, collapse = " + ")))
+
+# 1.3: compute odds
+exposure_fit <- stats::glm(
+  exposure_form,
+  data = data,
+  family = "binomial"
+  )
+
+# 1.4: show odds
+odds_table <- exposure_fit %>% 
+  gtsummary::tbl_regression(exponentiate = T)
+
+# step 2: compute propensity scores and visualize overlap before matching
+exposure_plot <- data %>% 
+  dplyr::mutate(ps = fitted(exposure_fit))
+
+# step 3: plot density/overlap before matching
+ps_plot <- exposure_plot %>% 
+  ggplot2::ggplot(ggplot2::aes(x = ps, fill = factor(exposure))) +
+  ggplot2::geom_density(alpha = .5) +
+  ggplot2::theme_bw() +
+  ggplot2::labs(
+    title = "Propensity score overlap",
+    x = "Pr(exposure)",
+    y = "Density",
+    fill = "Exposed"
+    )
+
+png(filename = here("figures", "Figure_1_propensity_score_overlap.png"), width = 15, height = 10, units = "in", res=600)
+ps_plot + ggplot2::theme(plot.title=element_text(size=70))
+dev.off()
+```
+
+## Branching
+
+Sometimes it is necessary to implement changes to a document or code without wanting to interfere with a current "`production`" version of a document or code. However, a researcher may still want to be able to "`merge`" back potential changes, e.g. to integrate new analyses into a script or to develop a new set of features or functions to an application. To do this in a safe, transparent and efficient manner, `Git` provides the option to **branch** our repository. The default branch of any repository is the `main` branch.
 
 Branching is a concept that is highly adapted in software development where the `main` branch reflects the software version that is deployed for public use (i.e., the production version) and a `development` branch that is the version that implements new features (i.e., the beta version). Hence, `branches` are used in order to have the flexibility to develop new features without jeopardizing the current `main` and `development` versions.
 
@@ -84,7 +157,7 @@ If the branch is merged and there is no desire anymore to use this branch any lo
 git branch -d lasso_variable_selection
 ```
 
-These steps can also easily be done on remote repositories like GitHub or GitLab. The only difference to keep in mind is that GitHub counterintuitively calls the procedure of merging two branches `pull request` while GitLab refers to it as `merge request`.	
+These steps can also easily be done on remote repositories like GitHub or GitLab. The only difference to keep in mind is that GitHub counterintuitively calls the procedure of merging two branches `pull request` while GitLab refers to it as `merge request`.
 
 In case `Git` recognizes any clashes or incompatibilities of the new code with the existing code it will notify the user and give us the chance to reconcile inconsitencies.
 
