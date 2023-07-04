@@ -34,7 +34,7 @@ library(knitr)
 
 # Supplementary material
 
-## Example for an end-to-end workflow using Git
+## Example for an end-to-end workflow cycle using Git
 
 This section aims to summarize a minimally commented end-to-end workflow for incorporating and tracking changes for an analysis step of an exemplary RWE study. To that end, we use the same example as in the main manuscript.
 
@@ -161,6 +161,8 @@ In case `Git` recognizes any clashes or incompatibilities of the new code with t
 -   Main `Git` website to download and learn more about `Git:` <https://git-scm.com>
 
 -   [Pro Git](https://git-scm.com/book/en/v2) by Scott Chacon and Ben Straub.
+
+-   Comprehensive guide on the use of Git in combination with R: <https://happygitwithr.com/>
 
 -   Cheatsheet on most important `Git` commands: <https://education.github.com/git-cheat-sheet-education.pdf>
 
