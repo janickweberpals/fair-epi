@@ -45,7 +45,7 @@ Fax: 617-232-8602
 
 Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
-[**Word count:**]{.underline} 3,239 words
+[**Word count:**]{.underline} 3,336 words
 
 [**Tables:**]{.underline} 0
 
@@ -73,9 +73,27 @@ Transparency and reproducibility are major prerequisites for conducting meaningf
 
 {{< pagebreak >}}
 
+::: {.callout-note icon="false"}
+## KEY POINTS
+
+-   Transparency and reproducibility are major prerequisites for conducting meaningful real-world evidence (RWE) studies that are fit for decision-making.
+
+-   Regulators, funding agencies and HTA bodies have increasing expectations regarding the provenance, audit trial and sharing of study documents including analytic code as a prerequisite for impactful and credible RWE studies.
+
+-   Version control systems (VCS) for analytic code like Git, GitHub and GitLab have unique advantages for making analytic code and other relevant RWE study documents Findable, Accessible, Interoperable and Reproducible (FAIR).
+
+-   In this manuscript, we discuss and demonstrate how VCS can be used to track changes over the course of a RWE project, collaborate, disseminate and archive analytic code and provide a technical step-by-step tutorial for the practical implementation of reproducible workflows using Git.
+
+-   Given the trend towards open source tools for clinical trial reporting and regulatory submissions, this tutorial addresses a timely topic and aims to encourage new and experienced pharmacoepidemiologists to integrate VCS in their daily work and embrace the advantages of FAIR analytic code sharing.
+:::
+
+{{< pagebreak >}}
+
 # Introduction
 
-Real-world evidence (RWE) studies that make secondary use of routinely collected health data captured in electronic health records and claims are increasingly being used to inform drug development, regulatory and coverage decisions, as well as clinical practice.[@fdaRWE2018; @eichler2015; @cioms2023; @makady2017] Considering the impact that RWE studies can have on patient healthcare, transparent and reproducible conduct of RWE studies is critically important. While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], guidance on transparency regarding the actual implementation and analytic steps is still significantly lacking, especially when analyses are implemented via line coding in statistical programming languages like R[@RCore2023], SAS or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018; @perez-riverol2016] or health informatics[@bakken2019], the sharing of code is rather the rule than the exception, this practice is not as common in the (pharmaco-) epidemiological community. As open source tools like R packages and Shiny dashboards[@pharmaverse2023] become increasingly used for for clinical trial reporting and regulatory submissions[@positPharma], the adoption of version control and code sharing practices is a crucial and timely topic for the field of RWE.
+Real-world evidence (RWE) studies that make secondary use of routinely collected health data captured in electronic health records and claims are increasingly being used to inform drug development, regulatory and coverage decisions, as well as clinical practice.[@fdaRWE2018; @eichler2015; @cioms2023; @makady2017] Considering the impact that RWE studies can have on patient healthcare, transparent and reproducible conduct of RWE studies is critically important.
+
+While many advances have been made in the documentation and reporting of study protocols and results[@wang2021; @schneeweiss2019; @berger2017; @wang2022], guidance on transparency regarding the actual implementation and analytic steps is still significantly lacking, especially when analyses are implemented via line coding in statistical programming languages like R[@RCore2023], SAS or Python. Although in other quantitative disciplines such as computational biology[@almugbel2017; @mammoliti2021; @russell2018; @perez-riverol2016] or health informatics[@bakken2019], the sharing of code is rather the rule than the exception, this practice is not as common in the (pharmaco-) epidemiological community. As open source tools like R packages and Shiny dashboards[@pharmaverse2023] become increasingly used for clinical trial reporting and regulatory submissions[@positPharma], the adoption of version control and code sharing practices is a crucial and timely topic for the field of RWE.
 
 Version control systems (VCS), such as *Git*, provide powerful tools to keep track of the versioning of important files and documents such as protocols, analytic code, tables and figures. Thereby, VCS can extend the principles of *FAIR* *data*[@garcía-closas2023] to the implementation of pharmacoepidemiological study workflows by making all components of a study **F**indable, **A**ccessible, **I**nteroperable, and **R**eproducible (**FAIR**).
 
@@ -181,9 +199,9 @@ This can also be achieved directly in the RStudio GUI via `File` \> `New Project
 
 ## Repository structure {#sec-repository-structure}
 
-At this step, we now can populate the repository and start working on study-relevant documents and analyses. To enhance clarity, it is recommended to use a logical structure and an informative nomenclature for sub-directories and file names (a minimal example is illustrated in @fig-structure). To document the structure and location of files, we can include this, and other critical information about the project, in the `README.md` file. This file can be auto-generated when a project is initialized through a remote repository (see prior step in @sec-gui-initialization-and-git-clone) or can be manually added aftwerwards by creating a text file with the name `README.md` in the root directory of the repository.
+At this step, we now can populate the repository and start working on study-relevant documents and analyses. To enhance clarity, it is recommended to use a logical structure and an informative nomenclature for sub-directories and file names (a minimal example is illustrated in @fig-structure). To document the structure and location of files, we can include this, and other critical information about the project, in the `README.md` file. This file can be auto-generated when a project is initialized through a remote repository (see prior step in @sec-gui-initialization-and-git-clone) or can be manually added afterwards by creating a text file with the name `README.md` in the root directory of the repository.
 
-To speed up these initial steps, we provide a pre-populated template of such a structured study repository based on the HARPER protocol[@wang2022] template under <https://gitlab-scm.partners.org/drugepi/harper>. HARPER is a harmonized study protocol template endorsed by the International Society of Pharmacoepidemiology and the International Society of Pharmacoeconomics and Outcomes Research. The pre-populated structured study repository template is publicly available and can be `forked`[@GitFork] to initiate a new project (see instructions in the template repository).
+To speed up these initial steps, we provide a pre-populated template of such a structured study repository based on the HARPER protocol[@wang2022] template under <https://gitlab-scm.partners.org/drugepi/harper>. HARPER is a harmonized study protocol template endorsed by the International Society of Pharmacoepidemiology and the International Society of Pharmacoeconomics and Outcomes Research. The pre-populated structured study repository template is publicly available and can be `forked`[@GitFork] to initiate a new project (see instructions in the template repository under the provided link).
 
 ## The git workflow
 
@@ -238,7 +256,7 @@ git branch -M main
 git push -u origin main
 ```
 
-This step is not needed if the intention of a researcher is just to keep track of local changes and there is no wish to share code, collaborate with others or work across different systems. However, most of the times researchers use `Git` for the purpose of collaborating on a project as depicted in @fig-collaborate.
+This step is not needed if the intention of a researcher is just to keep track of local changes and there is no wish to share code, collaborate with others or work across different systems. However, most of the times researchers use `Git` particularly for the purpose of collaborating on a project as depicted in @fig-collaborate.
 
 ### Synchronize remote to local (`pull`)
 
@@ -279,7 +297,7 @@ A further step to improve reproducibility when using the R programming language 
 
 ### Reproducible R computing environments
 
-One way to achieve this is through self-contained computing environments via Docker images which are isolated and standardized environments which include everything needed to run and deploy applications and code regardless of a user's local operating system.[@boettiger2017a; @nüst2020] Another more lightweight, yet effective way is by using the `renv` R package[@renv], which helps creating **re**producible **env**ironments and manages R package dependencies for a given project. Through a lockfile, the `renv` package keeps track of the underlying version of R that is being used as well as all R packages, their versions and the installation source (e.g., <https://cran.r-project.org/>). To synchronize the R environment with that of a collaborator, e.g., after cloning a repository, the only step to necessary is running the following command in R.
+One way to achieve this is through self-contained computing environments via Docker images which are isolated and standardized environments which include everything needed to run and deploy applications and code regardless of a user's local operating system.[@boettiger2017a; @nüst2020] Another more lightweight, yet effective way is by using the `renv` R package[@renv], which helps creating **re**producible **env**ironments and manages R package dependencies for a given project. Through a lockfile, the `renv` package keeps track of the underlying version of R that is being used as well as all R packages, their versions and the installation source (e.g., <https://cran.r-project.org/>). To synchronize the R environment with that of a collaborator, e.g., after cloning a repository, the only step necessary is running the following command in R.
 
 ```{r}
 renv::restore()
@@ -299,11 +317,11 @@ Another common issue when trying to reproduce analytic code is the use of absolu
 icd_codes <- read.csv('C:/User/Projects/rwe_study/protocol/icd_codes.csv')
 ```
 
-The use of absolute paths will make it impossible for any collaborator to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package[@here] which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example the `rwe_study` directory). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any user re-running this script.
+The use of absolute paths will make it impossible for any collaborator to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package[@here] which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example the `rwe_study` directory). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any collaborator re-running this script.
 
 ```{r}
 library(here)
-icd_codes <- read.csv(here("data", "icd_codes.csv"))
+icd_codes <- read.csv(here("protocol", "icd_codes.csv"))
 ```
 
 # Discussion
@@ -314,11 +332,11 @@ In this practical tutorial, we introduced basic concepts of VCS for transparent 
 
 `Git` was primarily designed to work with source code files and works best for plain, text-based documents such as programming code, rich text format (RTF), Markdown or LaTex files. There are limitations when it comes to tracking binary files like Word (.docx) and Excel (.xlsx) as these need to be interpreted by a program or a hardware processor.[@blischak2016] While it can be still useful to track versions of these file types using `Git`, it is important to recognize that modifications in such documents can't be easily inspected using RStudio or GitHub.
 
-Moreover, when working with remote repositories, it is of utmost importance to ensure that sensitive information (such as passwords or patient-level data) are not accidentally shared. To prevent this, we recommend specifying such files in the `.gitignore` file before making the first commit or, more preferably, not storing them in the project directory in the first place.
+Moreover, when working with remote repositories, it is of utmost importance to ensure that sensitive information (such as passwords or patient-level data) are not accidentally shared. To prevent this, we recommend specifying such files in the `.gitignore` file before making the very first commit or, more preferably, not storing them in the project directory in the first place.
 
 Despite the potential initial complexities to get acquainted with the `Git` workflow, distributed VCS and code sharing provide unique advantages, such as a full audit trail of which changes were made by whom, when and why. Git makes it easier for users to go back to any snapshot and resolve errors more efficiently. Further, remote repositories are ideal platforms to deploy and archive scripts and documents, facilitate collaboration and make it very convenient to share code. Although data sharing is unfortunately often prohibited due to privacy and legal reasons, many databases have been mapped to common data models like OMOP[@ohdsi2019book], Sentinel[@brown2020] and PCORnet[@fleurence2014], which makes shared code interoperable even without direct access to the same data source. Finally, code sharing can enable researchers to learn from each other, build trust[@orsini2020], expedite the uptake of novel methodologies and knowledge exchange and decrease unnecessary redundancies through sharing of code libraries, functions and algorithms.
 
-Regulators[@fdaRWE2021], funding agencies[@NIH2023;@PCORI2023] and HTA bodies[@kent2021] have increasing expectations regarding the provenance, sharing and audit trial of study documents including analytic code as a prerequisite for impactful and credible RWE studies. This manuscript addresses this timely topic and will hopefully motivate and enable new and experienced pharmacoepidemiologists to integrate VCS workflows and code sharing into their daily work.
+Regulators[@fdaRWE2021], funding agencies[@NIH2023;@PCORI2023] and HTA bodies[@kent2021] have increasing expectations regarding the provenance, sharing and audit trial of study documents including analytic code as a prerequisite for impactful and credible RWE studies. Given the trend towards open source tools for clinical trial reporting and regulatory submissions, this tutorial addresses a timely topic and hopefully encourages new and experienced pharmacoepidemiologists to integrate VCS in their daily work and embrace the advantages of FAIR analytic code sharing.
 
 {{< pagebreak >}}
 
@@ -385,7 +403,7 @@ knitr::include_graphics(here::here("figures", "Figure_5_collaboration.png"))
 
 ```{r}
 #| label: fig-GitHub-gui_changes
-#| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA [simple hasing algorithm] and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom)."
+#| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA [simple hasing algorithm] and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom; line 32 in the code script was added)."
 #| eval: true
 #| echo: false
 #| out-width: 105%
