@@ -186,7 +186,7 @@ In case `Git` recognizes any clashes or incompatibilities of the new code with t
 
 -   Useful Git repositories for observational healthcare research:
 
-    -   Division of Pharmacoepidemiology and Pharmacoeconomics: [https://gitlab-scm.partners.org/drugepi](https://gitlab-scm.partners.org/drugepi/harper){.uri}
+    -   Division of Pharmacoepidemiology and Pharmacoeconomics: <https://gitlab-scm.partners.org/drugepi>
 
     -   Observational Health Data Sciences and Informatics (OHDSI): <https://github.com/OHDSI>
 
