@@ -406,7 +406,7 @@ knitr::include_graphics(here::here("figures", "Figure_5_collaboration.png"))
 #| fig-cap: "Remote repositories like GitHub provide tools to visually track changes made to analytical code and corresponding output such as figures. This commit history illustrates details about the commit (e.g., commit SHA [simple hasing algorithm] and message), a side-by-side comparison of the previous (upper left) and modified (upper right) version of the figure and the corresponding changes made to the R code (bottom; line 32 in the code script was added)."
 #| eval: true
 #| echo: false
-#| out-width: 105%
+#| out-width: 100%
 
 knitr::include_graphics(here("figures", "Figure_6_commit_Github_gui.png"))
 ```
