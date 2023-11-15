@@ -6,9 +6,9 @@ Transparency and reproducibility in conducting healthcare database studies in ph
 
 This repository hosts all documents and files for the manuscript project on...
 
-```
-The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R
-```
+
+**The FAIRification of pharmacoepidemiological research: A practical introduction to reproducible analytical workflows using git and R**
+
 
 This manuscript is being drafted as part of the 2023 call for papers by the journal *Pharmacoepidemiology and Drug Safety (PDS)* focusing on **Pharmacoepidemiology Research Reproducibility**.
 
