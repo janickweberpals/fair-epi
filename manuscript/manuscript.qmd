@@ -135,7 +135,7 @@ These remote platforms make it possible to synchronize local Git repositories ac
 
 # A step-by-step introduction on how to use Git in a RWE study
 
-In this section, we want to give a technical introduction on how Git and remote repositories can be used in RWE studies. For the following examples, we focus on workflows utilizing R/RStudio ([https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/https://posit.co/download/rstudio-desktop/)) and GitHub (<https://github.com/>) as a remote repository, although the general concepts are fairly similar and easily transferable to other programming languages and remote repository providers, respectively. We will show examples for both command line interface (CLI) prompts as well as for RStudio's integrated GUI. For more details, we refer to the book *Pro Git* by Chacon and Straub.[@chacon2014pro] 
+In this section, we want to give a technical introduction on how Git and remote repositories can be used in RWE studies. For the following examples, we focus on workflows utilizing R/the RStudio integrated development environment (IDE) GUI ([https://posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/https://posit.co/download/rstudio-desktop/)) and GitHub (<https://github.com/>) as a remote repository, although the general concepts are fairly similar and easily transferable to other programming languages and remote repository providers, respectively. We will show examples for both command line interface (CLI) prompts as well as for RStudio's integrated GUI. For more details, we refer to the book *Pro Git* by Chacon and Straub.[@chacon2014pro] 
 
 ## Installing Git
 
