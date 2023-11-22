@@ -48,7 +48,13 @@ git branch
 Step 2: Before initiating any new changes, it can be a good idea to check if a collaborator, who may work on the same branch, made any changes.
 
 ```{bash, eval = FALSE, echo = TRUE}
-# git pull changes
+# git fetch to see changes without integrating them locally
+git fetch
+
+# git merge to integrate changes to local repository
+get merge
+
+# or directly git pull changes
 git pull
 ```
 
