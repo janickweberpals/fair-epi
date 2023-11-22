@@ -202,6 +202,45 @@ In case `Git` recognizes any clashes or incompatibilities of the new code with t
 
 {{< pagebreak >}}
 
+# Reproducible computation environments in R
+
+## Keeping track of R software versions and paths
+
+A major advantage of modern programming languages is that they provide a large pool of open-source packages. Packages are compilations of functions that automate frequently used procedures (e.g., querying new user cohorts[@tidyverse] or propensity score matching[@MatchIt]) which expedites the implementation of RWE studies, mitigates copy-paste errors and makes code much more friendly to read and review.
+
+A further step to improve reproducibility when using the R programming language is to ensure that anyone, intending to reproduce analytic results from a `Git` repository, is able to work off the same R package versions and dependencies without having to perform manual installations or path adjustments. These requirements are nothing exclusive to R, but apply to any type of programming language.
+
+### Reproducible R computing environments
+
+One way to achieve this is through self-contained computing environments via Docker images which are isolated and standardized environments which include everything needed to run and deploy applications and code regardless of a user's local operating system.[@boettiger2017a; @nüst2020] Another more lightweight, yet effective way is by using the `renv` R package[@renv], which helps creating **re**producible **env**ironments and manages R package dependencies for a given project. Through a lockfile, the `renv` package keeps track of the underlying version of R that is being used as well as all R packages, their versions and the installation source (e.g., <https://cran.r-project.org/>). To synchronize the R environment with that of a collaborator, e.g., after cloning a repository, the only step necessary is running the following command in R.
+
+```{r}
+renv::restore()
+```
+
+Appending the session info to the end of an R script can provide further context about the dependencies and versions of an analytic script.
+
+```{r}
+sessionInfo()
+```
+
+### Absolute versus relative paths
+
+Another common issue when trying to reproduce analytic code is the use of absolute paths such as in the following example, where we try to call an `icd_code` file from the project's `protocol` sub-directory.
+
+```{r}
+icd_codes <- read.csv('C:/User/Projects/rwe_study/protocol/icd_codes.csv')
+```
+
+The use of absolute paths will make it impossible for any collaborator to run the code without having to manually adapt every single path throughout a repository which is tedious and time consuming. A better solution to this is the use of relative paths. A popular R package to implement this is the `here` package[@here] which enables file referencing in project-oriented workflows. The main function "`here"` creates paths relative to the top-level of the project directory (in our example the `rwe_study` directory). Applied to our example project, the following command would automatically reference the correct path and could be used without modification by any collaborator re-running this script.
+
+```{r}
+library(here)
+icd_codes <- read.csv(here("protocol", "icd_codes.csv"))
+```
+
+# 
+
 # Supplementary Figures
 
 ```{r}
