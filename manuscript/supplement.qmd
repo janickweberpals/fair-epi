@@ -204,7 +204,7 @@ In case `Git` recognizes any clashes or incompatibilities of the new code with t
 
 # Reproducible computation environments in R
 
-Besides the usage of `Git` and remote repositories as a version control systems, there are further relevant aspects that determine the reproducibility of analytic code when using open-source software such a R. To complement the introduction and discussion on `Git` in the main manuscript, we here want to elaborate on a few further considerations of computational reproducibility when using R.
+Besides the usage of `Git` and remote repositories as a version control systems, there are further relevant aspects that determine the reproducibility of analytic code when using open-source software such as R. To complement the introduction and discussion on `Git` in the main manuscript, we here want to elaborate on a few further considerations addressing the computational reproducibility when using R.
 
 ## Keeping track of R software versions and paths
 
