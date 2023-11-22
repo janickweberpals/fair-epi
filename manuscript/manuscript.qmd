@@ -256,6 +256,22 @@ Every time a user makes a commit to create a snapshot of the work, `Git` creates
 
 If any file(s) in the study repository should not be tracked and hence not be synchronized with the remote repository (e.g., because they include confidential information that should not be visible to others like database credentials), these can be specified in the `.gitignore` file which is typically located in the root directory of the repository. To create a `.gitignore` file, a user can either auto-generate it upon initialization of the repository on GitHub (**Supplementary Figure 2**) or manually add a text file called `.gitignore` to the root directory.
 
+### Tags (`tag`) {#tags}
+
+A handy `Git` feature to highlight particularly important commits, snapshots, code/software releases or milestones of a project is `tagging`. In context of RWE studies, this can be a specific version of an analysis, e.g., the one used for regulatory submission or completion of a manuscript version or revision.
+
+Tags can be annotated with a semantic identifier and tag message, e.g.,
+
+```{bash}
+git tag -a v2.0 -m "Revised (R1) manuscript version"
+```
+
+All created tags can be displayed using the following command:
+
+```{bash}
+git tag
+```
+
 ## Synchronize changes with remote repository
 
 ### Synchronize local changes to remote (`push`)
@@ -283,7 +299,13 @@ git branch -M main
 git push -u origin main
 ```
 
-This step is not needed if the intention of a researcher is just to keep track of local changes and there is no wish to share code, collaborate with others or work across different systems. However, most of the times researchers use `Git` particularly for the purpose of collaborating on a project as depicted in @fig-collaborate.
+Tags, as described in @sec-tags, need to be separately pushed, e.g.,
+
+```{bash}
+git push origin v1.0
+```
+
+In summary, `git push` is not needed if the intention of a researcher is just to keep track of local changes and there is no wish to share code, collaborate with others or work across different systems. However, most of the times researchers use `Git` particularly for the purpose of collaborating on a project as depicted in @fig-collaborate.
 
 ### Synchronize remote to local (`pull`)
 
@@ -327,6 +349,8 @@ To that end, Zenodo[@europeancommission.directorategeneralforresearchandinnovati
 In this practical tutorial, we introduced basic concepts of VCS for transparent and reproducible workflows and gave technical step-by-step instructions for the implementation using `Git` and R. We discussed frequently occurring challenges for reproducibility and how these can be overcome.
 
 `Git` is a powerful tool that perfectly integrates into workflows of quantitative disciplines handling analytic code. It further provides features that make it convenient for project-oriented setups and collaboration at scale. This tutorial is by no means comprehensive as `Git` provides a vast number of additional features which were not addressed in this manuscript. To get familiar with more advanced `Git` usage, we compiled a non-exhaustive list of further suggested readings and resources in the **Supplementary Material**.
+
+Besides the usage of `Git` and remote repositories as a version control systems, there are also further relevant aspects that determine the reproducibility of analytic code when using open-source software such as R. To complement the introduction and discussion on `Git` in this manuscript, section 2 (*Reproducible computation environments in R*) in the **Supplementary Material** provides a few further considerations addressing the computational reproducibility when using R.
 
 `Git` was primarily designed to work with source code files and works best for plain, text-based documents such as programming code, rich text format (RTF), Markdown or LaTex files. There are limitations when it comes to tracking binary files like Word (.docx) and Excel (.xlsx) as these need to be interpreted by a program or a hardware processor.[@blischak2016] While it can be still useful to track versions of these file types using `Git`, it is important to recognize that modifications in such documents can't be easily inspected using RStudio or GitHub.
 
