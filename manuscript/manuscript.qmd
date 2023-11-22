@@ -183,7 +183,7 @@ This initiates the creation of the `.git` sub-directory within the study reposit
 
 An alternative to creating a new repository locally is through initiating a new project in the remote repository (in this case GitHub) and then creating a local copy, a process which is usually referred to as `cloning`.
 
-To do so, users will need to log into their remote repository account and navigate to the section `New repository` (**Supplementary Figure 1**). This will take a user to a form to populate basic information of the new project such as the repository name (`rwe_study`) and choose basic settings such as if the repository should be private or public and if `README.md` (see @sec-repository-structure) and `.gitignore` (see @sec-stage-and-commit-changes) files should be automatically created (**Supplementary Figure 2**).
+To do so, users will need to log into their remote repository account and navigate to the section `New repository` (**Supplementary Figure 1**). This will take a user to a form to populate basic information of the new project such as the repository name (`rwe_study`) and choose basic settings such as if the repository should be private or public and if `README.md` (see @sec-repository-structure) and `.gitignore` (see @sec-stage-and-commit-changes and @sec-security) files should be automatically created (**Supplementary Figure 2**).
 
 Now we can copy the pre-populated repository to our local machine by copy-pasting the link given under `Clone` \> `Copy HTTPS` into the CLI (**Supplementary Figure 3**):
 
@@ -254,9 +254,9 @@ git commit -m 'added title to plot illustrating propensity score overlap'
 
 Every time a user makes a commit to create a snapshot of the work, `Git` creates a unique hash (a 40-character string created by a **simple hashing algorithm** \[SHA\]) which can be seen as an "ID" of the snapshot which enables users to comprehend every change made and revert back to any snapshot of the repository. @fig-stage-commit-RStudio-gui illustrates the equivalent steps in RStudio GUI.
 
-If any file(s) in the study repository should not be tracked and hence not be synchronized with the remote repository (e.g., because they include confidential information that should not be visible to others like database credentials), these can be specified in the `.gitignore` file which is typically located in the root directory of the repository. To create a `.gitignore` file, a user can either auto-generate it upon initialization of the repository on GitHub (**Supplementary Figure 2**) or manually add a text file called `.gitignore` to the root directory.
+If any file(s) in the study repository should not be tracked and hence not be synchronized with the remote repository (e.g., because they include confidential information that should not be visible to others like database credentials), these can be specified in the `.gitignore` file which is typically located in the root directory of the repository. To create a `.gitignore` file, a user can either auto-generate it upon initialization of the repository on GitHub (**Supplementary Figure 2**) or manually add a text file called `.gitignore` to the root directory (more information in @sec-security).
 
-### Tags (`tag`) {#tags}
+#### Tags (`tag`) {#sec-tags}
 
 A handy `Git` feature to highlight particularly important commits, snapshots, code/software releases or milestones of a project is `tagging`. In context of RWE studies, this can be a specific version of an analysis, e.g., the one used for regulatory submission or completion of a manuscript version or revision.
 
@@ -318,7 +318,7 @@ git pull
 
 Occasionally it can occur that two collaborators made conflicting changes to the same file or even to the same line of code. While Git is generally good at automatically integrating (`merging`) new changes, Git will notify the user to resolve a major conflict by editing the conflicting file if Git cannot automatically determine what is correct (e.g., if one collaborator has made changes to a line of code and the other completely deleted it).
 
-## Tracking changes {#tracking-changes}
+## Tracking changes {#sec-tracking-changes}
 
 One of the main motivations to adhere to this workflow is that in return we get rewarded with a detailed audit trail of changes made to our study files. Probably the best way to visualize and track changes is by browsing the `commit history` on the remote repository. @fig-GitHub-gui_changes illustrates this for the example commit we have previously performed in @sec-stage-and-commit-changes. A similar view for uncommitted changes in the RStudio GUI is also provided in @fig-stage-commit-RStudio-gui.
 
@@ -344,6 +344,53 @@ A cornerstone of FAIR principles is the use of persistent identifiers, such as d
 
 To that end, Zenodo[@europeancommission.directorategeneralforresearchandinnovation.2019; @zenodo], a free and open-source platform funded by the European Commission and developed and maintained by European Organization for Nuclear Research (CERN), allows users to share diverse research artifacts. The platform seamlessly interfaces with GitHub, enabling the creation of referenceable DOIs for existing code repositories. The steps required to obtain a DOI involve the linkage of a Zenodo and a GitHub account[@zenodoGitHub]. Once linked, a user will be able to select a specific release of a repository which automatically registers a new DOI and a corresponding badge which can be included and referenced in a GitHub README file.
 
+## Security considerations {#sec-security}
+
+When working with Git and remote repositories, several security considerations are crucial to safeguard sensitive information. First, it is of utmost importance to ensure that sensitive information (such as personal access tokens, passwords or patient-level data) are not accidentally shared. One way to prevent this is to configure a `.gitignore` file, which is a flat text file typically stored in the root directory of the repository. Each line in `.gitignore` specifies a file name, sub-directory name or a file name pattern (e.g., "\*.csv" for all files of type csv) that a user intentionally does not want to track and synchronize with a remote repository. If it can be avoided, such sensitive information should alternatively not be stored in the project directory in the first place.
+
+```{bash}
+# Example .gitgnore file specyfing which 
+# files, sub-directories and patterns
+# should not be tracked
+
+# password .txt file
+pwd.txt
+
+# Session Data files
+.RData
+.Rhistory
+
+# any type of .csv file
+*.csv
+
+# output directory
+output/
+
+# .Renviron in root directory
+.Renviron
+```
+
+Second, it is good practice to not include passwords or personal access tokens inside an analytic code file but to call these from an external file. RStudio, for example, offers the possibility to create environment files (`.Renviron` and `.RProfile`) which are user-controllable text files which can be stored in the project root directory and is automatically called upon an R session start. Such a file can be configured to not be tracked using `.gitignore` (as illustrated above) and accessed as show in the following.
+
+```{r}
+# Example: configuration of database access credentials inside an .Renviron file
+db_username = "JoshSmith"
+db_password = "User1234"
+```
+
+These credentials can now be called inside an R script, for example, to access a database (example taken from `genieBPC` R package [@lavery2022]).
+
+```{r}
+# Example how the credentials defined in .Renviron can be used
+# inside an RScript
+set_synapse_credentials(
+  username = Sys.getenv("db_username"), 
+  password = Sys.getenv("db_password")
+  )
+```
+
+Third, it needs to be ensured that access permissions to remote repositories are appropriately configured, granting only necessary access levels to collaborators unless it is intended to share the repository with the public. All major remote repositories offer the option to configure a repository to be private or public.
+
 # Discussion
 
 In this practical tutorial, we introduced basic concepts of VCS for transparent and reproducible workflows and gave technical step-by-step instructions for the implementation using `Git` and R. We discussed frequently occurring challenges for reproducibility and how these can be overcome.
@@ -354,11 +401,9 @@ Besides the usage of `Git` and remote repositories as a version control systems,
 
 `Git` was primarily designed to work with source code files and works best for plain, text-based documents such as programming code, rich text format (RTF), Markdown or LaTex files. There are limitations when it comes to tracking binary files like Word (.docx) and Excel (.xlsx) as these need to be interpreted by a program or a hardware processor.[@blischak2016] While it can be still useful to track versions of these file types using `Git`, it is important to recognize that modifications in such documents can't be easily inspected using RStudio or GitHub.
 
-Moreover, when working with remote repositories, it is of utmost importance to ensure that sensitive information (such as passwords or patient-level data) are not accidentally shared. To prevent this, we recommend specifying such files in the `.gitignore` file before making the very first commit or, more preferably, not storing them in the project directory in the first place.
-
 Despite the potential initial complexities to get acquainted with the `Git` workflow, distributed VCS and code sharing provide unique advantages, such as a full audit trail of which changes were made by whom, when and why. Remote repositories are ideal platforms to deploy and archive scripts and documents, facilitate collaboration and make it very convenient to share code. While the access to the final version of the programming code is already sufficient for external reproducibility, the tracking of changes over time enables a study team to comprehend and resolve errors more efficiently. Similar to tracking changes and amendments of a study protocol, an external audience also benefits from a complete audit trail through a better understanding of the documented scientific rationale behind specific changes, the identification of implemented quality control processes (e.g., code reviews) and the tracking of contributions of different collaborators to the codebase.
 
-Although data sharing is unfortunately often prohibited due to privacy and legal reasons, many databases have been mapped to common data models like OMOP[@ohdsi2019book], Sentinel[@brown2020], PCORnet[@fleurence2014] and ConcePTION [@thurin2021], which makes shared code interoperable even without direct access to the same data source. In order to achieve full replicability, authors may alternatively include a sample of dummy data to enable readers to comprehend and run the analytic code. Moreover, many larger research data sources have already provided synthetic data using identical formats and variable names while protecting patient privacy (e.g., Medicare Claims Synthetic Public Use Files).\[@gonzal
+Although data sharing is unfortunately often prohibited due to privacy and legal reasons, many databases have been mapped to common data models like OMOP[@ohdsi2019book], Sentinel[@brown2020], PCORnet[@fleurence2014] and ConcePTION [@thurin2021], which makes shared code interoperable even without direct access to the same data source. In order to achieve full replicability, authors may alternatively include a sample of dummy data to enable readers to comprehend and run the analytic code. Moreover, many larger research data sources have already provided synthetic data using identical formats and variable names while protecting patient privacy (e.g., Medicare Claims Synthetic Public Use Files).[@gonzales2023]
 
 Finally, code sharing can enable researchers to learn from each other, build trust[@orsini2020], expedite the uptake of novel methodologies and knowledge exchange and decrease unnecessary redundancies through sharing of code libraries, functions and algorithms.
 
