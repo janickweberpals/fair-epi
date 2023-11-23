@@ -137,10 +137,10 @@ git branch lasso_variable_selection
 git checkout lasso_variable_selection
 ```
 
-It is possible to switch between multiple branches back and forth and it's important to keep in mind that changes need to be committed before switch to the new branch branch. A user can e.g. switch back to the master branch by running the following command:
+It is possible to switch between multiple branches back and forth and it's important to keep in mind that changes need to be committed before switch to the new branch branch. A user can e.g. switch back to the main branch by running the following command:
 
 ```{bash, eval=FALSE, echo=TRUE}
-git checkout master
+git checkout main
 ```
 
 Suppose we have decided that the `lasso_variable_selection` approach led to a better balancing of the two new user cohorts after propensity score matching and we are ready to merge the implemented changes back into our main branch. This can be achieved by checking out the branch you wish to merge into (in this case `main` and then run the git merge command:
