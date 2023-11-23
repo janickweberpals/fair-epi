@@ -45,7 +45,7 @@ Fax: 617-232-8602
 
 Email: [jweberpals\@bwh.harvard.edu](mailto:jweberpals@bwh.harvard.edu)
 
-[**Word count:**]{.underline} 3,336 words
+[**Word count:**]{.underline} 4,293 words
 
 [**Tables:**]{.underline} 0
 
@@ -213,7 +213,7 @@ To speed up these initial steps, we provide a pre-populated template of such a s
 
 The most essential steps of a git workflow are summarized in @fig-workflow and in the **Supplementary Material**.
 
-### Synchronize changes from a remote repository to a local repository (`pull`, `fetch`, `merge` and `rebase`)  {#pull-fetch-merge}
+### Synchronize changes from a remote repository to a local repository (`pull`, `fetch`, `merge` and `rebase`) {#pull-fetch-merge}
 
 Especially when working collaboratively with multiple users on a remote repository, it is usually good practice to synchronize the status of one's local repository and the remote repository before making any changes since there could be potential modifications and updates already made by others. To avoid any conflicts between two different versions and always work with the most recent version of a file, the first step of the git workflow involves a `git pull` or `git fetch` command.
 
