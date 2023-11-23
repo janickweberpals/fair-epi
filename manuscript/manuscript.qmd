@@ -197,7 +197,7 @@ git clone https://github.com/USER/rwe_study.git
 
 This can also be achieved directly in the RStudio GUI via `File` \> `New Project` \> `Version Control` \> `Git` \> paste the link to `Repository URL` (@fig-RStudio-gui).
 
-In case a users wants to join or contribute to an already existing project, `git clone` works the same way with the only difference that the repository already contains some files and is not empty.
+In case a user wants to join or contribute to an already existing project, `git clone` works the same way with the only difference that the repository already contains some files and is not empty.
 
 ## Repository structure, README file and licenses {#sec-repository-structure}
 
