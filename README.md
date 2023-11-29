@@ -1,5 +1,7 @@
 # FAIRification of pharmacoepidemiological research using `Git`
 
+[![DOI](https://zenodo.org/badge/719281329.svg)](https://zenodo.org/doi/10.5281/zenodo.10222659)
+
 Transparency and reproducibility in conducting healthcare database studies in pharmacoepidemiology are critical scientific requirements for meaningful research. To increase the adoption of transparent and reproducible workflows in real-world evidence (RWE) studies using the version control systems (VCS), this tutorial aims to give a practical introduction tailored for pharmacoepidemiologists on how to set up, structure, and implement workflows using `Git`, the most frequently used VCS to date.
 
 ## About
